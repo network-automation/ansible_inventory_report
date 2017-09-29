@@ -6,3 +6,7 @@ localhost
 [cisco]
 n9k ansible_host=192.168.2.3
 n9k2 ansible_host=192.168.2.3
+n9k3 ansible_host=192.168.2.3
+n9k4 ansible_host=192.168.2.3
+n9k5 ansible_host=192.168.2.3
+n9k6 ansible_host=192.168.2.3
