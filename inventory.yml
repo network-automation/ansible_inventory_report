@@ -13,6 +13,6 @@
 
     - template:
         src: report.j2
-        dest: generated_report.html
+        dest: ./generated_report.html
       delegate_to: localhost
       run_once: true

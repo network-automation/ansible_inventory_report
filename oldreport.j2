@@ -17,6 +17,9 @@
 {% for network_switch in groups['cisco'] %}
         <tr>
             <td>{{hostvars[network_switch]['ansible_net_hostname']}}</td>
+            <td>{{ansible_net_model}}</td>
+            <td>{{ansible_net_interfaces.mgmt0.ipv4["address"]}}</td>
+            <td>{{ansible_net_version}}</td>
         </tr>
 {% endfor %}
     </tbody>
