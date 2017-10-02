@@ -19,7 +19,7 @@
             <td>{{hostvars[network_switch]['ansible_net_hostname']}}</td>
             <td>{{hostvars[network_switch]['ansible_net_model']}}</td>
             <td>{{hostvars[network_switch]['ansible_net_interfaces']['mgmt0']['ipv4']['address']}}</td>
-            {% if hostvars[network_switch]['ansible_net_version'] != desired_version %}<span class="highlight">{% endif %}<td>{{hostvars[network_switch]['ansible_net_version']}}</td>{% if hostvars[network_switch]['ansible_net_version'] != desired_version %}</span>{% endif %}
+            <td>{% if hostvars[network_switch]['ansible_net_version'] != desired_version %}<span class="highlight">{% endif %}{{hostvars[network_switch]['ansible_net_version']}}{% if hostvars[network_switch]['ansible_net_version'] != desired_version %}</span>{% endif %}</td>
         </tr>
 {% endfor %}
     </tbody>
