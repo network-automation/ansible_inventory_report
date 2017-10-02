@@ -2,6 +2,9 @@
 - hosts: cisco
   connection: local
   gather_facts: False
+  vars:
+    #desired_version: "7.0(3)I7(1)"
+    desired_version: "5"
   tasks:
     - name: gathering nxos facts
       nxos_facts:
