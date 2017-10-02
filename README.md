@@ -10,6 +10,8 @@ Only two modules are needed for this example.  The [nxos_facts module](http://do
 - hosts: cisco
   connection: local
   gather_facts: False
+  vars:
+    desired_version: "7.0(3)I7(1)"
   tasks:
     - name: gathering nxos facts
       nxos_facts:
