@@ -52,7 +52,7 @@ n9k6                       : ok=1    changed=0    unreachable=0    failed=0
 ```
 
 ---
-![Ansible Red Hat Engine](ansible-engine.png)
+![Ansible Red Hat Engine](ansible-engine-small.png)
 
 In addition to open source Ansible, there is Red Hat® Ansible® Engine which includes support and an SLA for the nxos_facts module shown above.
 
