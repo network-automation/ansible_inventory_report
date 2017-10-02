@@ -53,6 +53,7 @@ n9k6                       : ok=1    changed=0    unreachable=0    failed=0
 
 ---
 ![Ansible Red Hat Engine](ansible-engine.png)
+
 In addition to open source Ansible, there is Red Hat® Ansible® Engine which includes support and an SLA for the nxos_facts module shown above.
 
 Red Hat® Ansible® Engine is a fully supported product built on the simple, powerful and agentless foundation capabilities derived from the Ansible project.  Please visit [ansible.com](https://www.ansible.com/ansible-engine) for more information.
