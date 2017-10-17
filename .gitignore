@@ -1,0 +1,11 @@
+# Emacs backup and autosave files...
+*~
+.\#*
+\#*
+# Mac OS X stuff...
+.DS_Store
+# Vim swap files
+*.swp
+*.swo
+# test output
+*.retry
