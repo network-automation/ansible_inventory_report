@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>Hostname</th>
+            <th>Model Type</th>
+            <th>Serial Number</th>
+            <th>Mgmt interface IP</th>
+            <th>Code Version</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for network_switch in groups['ios'] %}
+        <tr>
+            <td>{{hostvars[network_switch]['ansible_net_hostname']}}</td>
+            <td>{{hostvars[network_switch]['ansible_net_model']}}</td>
+            <td>{{hostvars[network_switch]['ansible_net_serialnum']}}</td>
+            <td>{{hostvars[network_switch]['ansible_net_interfaces']['GigabitEthernet0/0']['ipv4'][0]['address']}}</td>
+            <td {% if hostvars[network_switch]['ansible_net_version'] != desired_ios_version %}style="background:yellow;"{% endif %}>{{hostvars[network_switch]['ansible_net_version']}}</td>
+        </tr>
+{% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

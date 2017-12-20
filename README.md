@@ -53,6 +53,45 @@ n9k5                       : ok=1    changed=0    unreachable=0    failed=0
 n9k6                       : ok=1    changed=0    unreachable=0    failed=0
 ```
 
+A very similar playbook can be used to generate a report for Cisco IOS devices using the [ios_facts module](http://docs.ansible.com/ansible/latest/ios_facts_module.html)
+
+```
+[root@localhost ansible_inventory_report]# ansible-playbook inventory-ios.yml
+
+PLAY [build IOS XE inventory] **************************************************************
+
+TASK [gathering IOS XE facts] **************************************************************
+  ok: [172.26.249.162]
+  ok: [172.26.249.161]
+  ok: [172.26.249.164]
+  ok: [172.26.249.163]
+  ok: [172.26.249.160]
+  ok: [172.26.249.151]
+  ok: [172.26.249.166]
+  ok: [172.26.249.153]
+  ok: [172.26.249.169]
+  ok: [172.26.249.152]
+  ok: [172.26.249.154]
+  ok: [172.26.249.159]
+
+  TASK [create HTML report] ******************************************************************
+  changed: [172.26.249.160 -> localhost]
+
+  PLAY RECAP *********************************************************************************
+  172.26.249.151             : ok=1    changed=0    unreachable=0    failed=0
+  172.26.249.152             : ok=1    changed=0    unreachable=0    failed=0
+  172.26.249.153             : ok=1    changed=0    unreachable=0    failed=0
+  172.26.249.154             : ok=1    changed=0    unreachable=0    failed=0
+  172.26.249.159             : ok=1    changed=0    unreachable=0    failed=0
+  172.26.249.160             : ok=2    changed=1    unreachable=0    failed=0
+  172.26.249.161             : ok=1    changed=0    unreachable=0    failed=0
+  172.26.249.162             : ok=1    changed=0    unreachable=0    failed=0
+  172.26.249.163             : ok=1    changed=0    unreachable=0    failed=0
+  172.26.249.164             : ok=1    changed=0    unreachable=0    failed=0
+  172.26.249.166             : ok=1    changed=0    unreachable=0    failed=0
+  172.26.249.169             : ok=1    changed=0    unreachable=0    failed=0
+  ```
+
 ---
 ![Ansible Red Hat Engine](ansible-engine-small.png)
 
