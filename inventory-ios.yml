@@ -1,0 +1,22 @@
+---
+  - name: build IOS XE inventory
+    hosts: ios
+    connection: local
+    gather_facts:  False
+  
+    vars:
+       desired_ios_version: "16.06.01"
+
+    tasks:
+
+      - name: gathering IOS XE facts
+        ios_facts:
+        register: all_facts
+
+      - name: create HTML report
+        template:
+          src: report-ios.j2
+          dest: /var/www/html/inventory_report_ios.html
+        delegate_to: localhost
+        run_once: true
+#          provider: "{{login_info}}"
