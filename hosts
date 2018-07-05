@@ -24,3 +24,9 @@ n9k3 ansible_host=192.168.2.3
 n9k4 ansible_host=192.168.2.3
 n9k5 ansible_host=192.168.2.3
 n9k6 ansible_host=192.168.2.3
+
+[ios:vars]
+ansible_network_os=ios
+
+[cisco:vars]
+ansible_network_os=nxos

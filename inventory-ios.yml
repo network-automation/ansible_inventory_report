@@ -1,9 +1,9 @@
 ---
   - name: build IOS XE inventory
     hosts: ios
-    connection: local
+    connection: network_cli
     gather_facts:  False
-  
+
     vars:
        desired_ios_version: "16.06.01"
 
