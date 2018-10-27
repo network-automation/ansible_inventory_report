@@ -12,20 +12,26 @@ The playbook
 Only two modules are needed for this example.  The [nxos_facts module][1] and
 the [template module][5]
 ```
-- hosts: cisco
-  connection: local
+---
+- name: build NXOS inventory report
+  hosts: nxos
+  connection: network_cli
   gather_facts: False
+
   vars:
     desired_version: "7.0(3)I7(1)"
+    file_path: /var/www/html/generated_report.html
+
   tasks:
     - name: gathering nxos facts
       nxos_facts:
         provider: "{{login_info}}"
+      register: all_facts
 
     - name: create HTML report
       template:
         src: report.j2
-        dest: /var/www/html/generated_report.html
+        dest: "{{ file_path }}"
       delegate_to: localhost
       run_once: true
 ```
@@ -120,7 +126,7 @@ Red Hat® Ansible® Automation consists of  three products:
 
 [1]: http://docs.ansible.com/ansible/latest/nxos_facts_module.html
 [2]: http://docs.ansible.com/ansible/latest/list_of_network_modules.html
-[3]: htmlreport.png
+[3]: images/htmlreport.png
 [4]: http://docs.ansible.com/ansible/latest/ios_facts_module.html
 [5]: http://docs.ansible.com/ansible/latest/template_module.html
 [6]: images/rh-ansible-automation.png

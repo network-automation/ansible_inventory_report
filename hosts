@@ -17,7 +17,7 @@ localhost
 [mac]
 192.168.2.1
 
-[cisco]
+[nxos]
 n9k ansible_host=192.168.2.3
 n9k2 ansible_host=192.168.2.3
 n9k3 ansible_host=192.168.2.3
@@ -28,5 +28,5 @@ n9k6 ansible_host=192.168.2.3
 [ios:vars]
 ansible_network_os=ios
 
-[cisco:vars]
+[nxos:vars]
 ansible_network_os=nxos
