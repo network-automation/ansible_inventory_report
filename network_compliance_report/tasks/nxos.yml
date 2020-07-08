@@ -5,7 +5,7 @@
   mattermost:
     api_key: "{{ mattermost_token }}"
     url: "{{ mattermost_url }}"
-    text: "{{ lookup('template','mattermost_eos.j2') }}"
-    channel: ansible-tasks
+    text: "{{ lookup('template','mattermost_nxos.j2') }}"
+    channel: "{{ mattermost_channel }}"
     validate_certs: no
   run_once: true
