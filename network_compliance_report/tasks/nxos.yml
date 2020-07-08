@@ -1,0 +1,11 @@
+- name: Gathering Nexus facts
+  nxos_facts:
+  
+- name: Send Report to Mattermost
+  mattermost:
+    api_key: "{{ mattermost_token }}"
+    url: "{{ mattermost_url }}"
+    text: "{{ lookup('template','mattermost_eos.j2') }}"
+    channel: ansible-tasks
+    validate_certs: no
+  run_once: true

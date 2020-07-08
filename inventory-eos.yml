@@ -1,0 +1,8 @@
+---
+- name: Build Arista inventory report
+  hosts: eos
+  connection: network_cli
+  gather_facts:  False
+
+  roles:
+    - network_compliance_report

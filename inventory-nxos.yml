@@ -1,6 +1,6 @@
 ---
-- name: Build IOS inventory report
-  hosts: ios
+- name: Build Nexus inventory report
+  hosts: nxos
   connection: network_cli
   gather_facts: False
 
