@@ -29,6 +29,12 @@ Required Variables
 * *mattermost_token* = the api token for the mattermost instance
 * *mattermost_channel* = the channel to send the message to
 
+Example Output
+--------------------
+
+Devices not matching the desired version will have a warning side next to the version.
+
+![Example Arista Report](https://i.imgur.com/hQoAALw.png)
 
 ---
 ![Red Hat Ansible Automation][6]
