@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-{% for network_switch in groups['cisco'] %}
+{% for network_switch in groups['nxos'] %}
         <tr>
             <td>{{hostvars[network_switch]['ansible_net_hostname']}}</td>
             <td>{{hostvars[network_switch]['ansible_net_model']}}</td>

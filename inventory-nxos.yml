@@ -1,0 +1,11 @@
+---
+- name: Build Nexus inventory report
+  hosts: nxos
+  connection: network_cli
+  gather_facts: False
+
+  vars:
+    file_path: /var/www/html/inventory_report_nxos.html
+
+  roles:
+    - network_compliance_report

@@ -1,0 +1,10 @@
+- name: Gathering Nexus facts
+  nxos_facts:
+  register: all_facts
+  
+- name: Create HTML report
+  template:
+    src: report.j2
+    dest: "{{ file_path }}"
+  delegate_to: localhost
+  run_once: true

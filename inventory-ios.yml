@@ -1,20 +1,19 @@
 ---
-  - name: build IOS inventory report
+  - name: Build IOS inventory report
     hosts: ios
     connection: network_cli
     gather_facts:  False
 
     vars:
-       desired_ios_version: "16.06.01"
        file_path: /var/www/html/inventory_report_ios.html
 
     tasks:
 
-      - name: gathering IOS facts
+      - name: Gathering IOS facts
         ios_facts:
         register: all_facts
 
-      - name: create HTML report
+      - name: Create HTML report
         template:
           src: report-ios.j2
           dest: "{{ file_path }}"
