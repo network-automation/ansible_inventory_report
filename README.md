@@ -4,7 +4,7 @@ Network Inventory Report with Ansible
 Purpose
 ------------
 
-Creates a network inventory report for device versions. If a device version doesn't match what is configured in the "desired_version" variable then it will be highlighted in the report. This will send a report to Mattermost but can be modified to use Slack.
+Creates a network inventory report for device versions. If a device version doesn't match what is configured in the "desired_version" variable then it will be highlighted in the report. This will send a report to Mattermost but can be modified to use Slack or other chat applications or documentation tools like Confluence.
 
 The playbook
 ------------
@@ -32,7 +32,7 @@ Required Variables
 Example Output
 --------------------
 
-Devices not matching the desired version will have a warning side next to the version.
+Devices not matching the desired version will have a warning sign next to the version.
 
 ![Example Arista Report](https://i.imgur.com/hQoAALw.png)
 
