@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
   - name: Build IOS inventory report
     hosts: ios
     connection: network_cli
@@ -19,3 +20,12 @@
           dest: "{{ file_path }}"
         delegate_to: localhost
         run_once: true
+=======
+- name: Build IOS inventory report
+  hosts: ios
+  connection: network_cli
+  gather_facts: False
+
+  roles:
+    - network_compliance_report
+>>>>>>> f1259f87bd5e7558a85f593459e980015dd2fe3a

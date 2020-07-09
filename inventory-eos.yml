@@ -4,8 +4,11 @@
   connection: network_cli
   gather_facts:  False
 
+<<<<<<< HEAD
   vars:
      file_path: /var/www/html/inventory_report_eos.html
 
+=======
+>>>>>>> f1259f87bd5e7558a85f593459e980015dd2fe3a
   roles:
     - network_compliance_report
