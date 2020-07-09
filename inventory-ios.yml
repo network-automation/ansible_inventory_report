@@ -1,26 +1,4 @@
 ---
-<<<<<<< HEAD
-  - name: Build IOS inventory report
-    hosts: ios
-    connection: network_cli
-    gather_facts:  False
-
-    vars:
-       file_path: /var/www/html/inventory_report_ios.html
-
-    tasks:
-
-      - name: Gathering IOS facts
-        ios_facts:
-        register: all_facts
-
-      - name: Create HTML report
-        template:
-          src: report-ios.j2
-          dest: "{{ file_path }}"
-        delegate_to: localhost
-        run_once: true
-=======
 - name: Build IOS inventory report
   hosts: ios
   connection: network_cli
@@ -28,4 +6,3 @@
 
   roles:
     - network_compliance_report
->>>>>>> f1259f87bd5e7558a85f593459e980015dd2fe3a
