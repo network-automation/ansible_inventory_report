@@ -1,15 +1,4 @@
 - name: Gathering Arista facts
-<<<<<<< HEAD
-  ios_facts:
-  register: all_facts
-  
-- name: Create HTML Report
-  template:
-    src: report-eos.j2
-    dest: "{{ file_path }}"
-  delegate_to: localhost
-  run_once: true
-=======
   eos_facts:
   
 - name: Send Report to Mattermost
@@ -20,4 +9,3 @@
     channel: "{{ mattermost_channel }}"
     validate_certs: no
   run_once: true
->>>>>>> f1259f87bd5e7558a85f593459e980015dd2fe3a
