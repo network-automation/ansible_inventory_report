@@ -43,7 +43,6 @@
     status_code: 201,200
     body: "{{ lookup('template','templates/confluence_body.j2') }}"
     body_format: json
-  register: confluence_pages
   run_once: true
   when:
     - confluence_title is defined
@@ -59,7 +58,6 @@
     status_code: 201,200
     body: "{{ lookup('template','templates/confluence_body.j2') }}"
     body_format: json
-  register: confluence_pages
   run_once: true
   when:
     - confluence_title is defined
