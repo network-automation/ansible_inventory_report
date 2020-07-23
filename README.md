@@ -24,13 +24,13 @@ the [mattermost module][5]
 
 There are 2 ways to create a report, Mattermost and Confluence. Below are the required variables for each.
 
-_Mattermost_
+**Mattermost**
 
 - _mattermost_url_ = the url for the mattermost instance
 - _mattermost_token_ = the api token for the mattermost instance
 - _mattermost_channel_ = the channel to send the message to
 
-_Confluence_
+**Confluence**
 
 - _confluence_user_= Username for Confluence
 - _confluence_token_= API Token for Confluence
