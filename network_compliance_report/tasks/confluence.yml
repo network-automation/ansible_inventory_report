@@ -1,6 +1,6 @@
 - name: Get Confluence Pages
   uri:
-    url: https://macknet.atlassian.net/wiki/rest/api/space/NETWORK/content?expand=body.storage,version
+    url: "https://{{ confluence_url }}/wiki/rest/api/space/NETWORK/content"
     method: GET
     user: "{{ confluence_user }}"
     password: "{{ confluence_token }}"
@@ -18,7 +18,7 @@
 
 - name: Get Confluence Page Version
   uri:
-    url: "https://macknet.atlassian.net/wiki/rest/api/content/{{ confluence_page_id[0] }}"
+    url: "https://{{ confluence_url }}/wiki/rest/api/content/{{ confluence_page_id[0] }}"
     method: GET
     user: "{{ confluence_user }}"
     password: "{{ confluence_token }}"
@@ -35,7 +35,7 @@
 
 - name: Create Network Inventory Report Page
   uri:
-    url: https://macknet.atlassian.net/wiki/rest/api/content/
+    url: "https://{{ confluence_url }}/wiki/rest/api/content/"
     method: POST
     user: "{{ confluence_user }}"
     password: "{{ confluence_token }}"
@@ -51,7 +51,7 @@
 
 - name: Update Network Inventory Report Page
   uri:
-    url: "https://macknet.atlassian.net/wiki/rest/api/content/{{ confluence_page_id[0] }}"
+    url: "https://{{ confluence_url }}/wiki/rest/api/content/{{ confluence_page_id[0] }}"
     method: PUT
     user: "{{ confluence_user }}"
     password: "{{ confluence_token }}"

@@ -32,11 +32,12 @@ There are 2 ways to create a report, Mattermost and Confluence. Below are the re
 
 **Confluence**
 
-- _confluence_user_= Username for Confluence
-- _confluence_token_= API Token for Confluence
-- _confluence_title_= Title of the page to create
-- _confluence_json_query_= This is the JSON query to parse the Confluence payload for relevant data needed
-- _confluence_space_= This is the space that the page will be created (E.G. Network, Dev, etc)
+- **confluence_url**= URL for Confluence
+- **confluence_user**= Username for Confluence
+- **confluence_token**= API Token for Confluence
+- **confluence_title**= Title of the page to create
+- **confluence_json_query**= This is the JSON query to parse the Confluence payload for relevant data needed
+- **confluence_space**= This is the space that the page will be created (E.G. Network, Dev, etc)
 
 ## Example Output
 
