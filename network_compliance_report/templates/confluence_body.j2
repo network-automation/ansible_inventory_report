@@ -1,0 +1,33 @@
+{
+  "type": "page",
+  "title": "{{ confluence_title }}",
+  "version": {"number":"{{ confluence_page_version }}"},
+  "space": { "key": "{{ confluence_space }}" },
+  "body": {
+    "storage": {
+      "representation": "storage",
+      "value": """<table>
+<thead>
+  <tr>
+    <th>Hostname</th>
+    <th>Model</th>
+    <th>Management IP</th>
+    <th>Serial #</th>
+    <th>Version</th>
+  </tr>
+</thead>
+<tbody>
+{% for device in groups['eos'] %}
+  <tr>
+    <td>{{ hostvars[device]['ansible_net_hostname'] }}</td>
+    <td>{{ hostvars[device]['ansible_net_model'] }}</td>
+    <td>{{ hostvars[device]['ansible_host'] }}</td>
+    <td>{{ hostvars[device]['ansible_net_serialnum'] }}</td>
+    <td {% if hostvars[device]['ansible_net_version'] != desired_version %}style="background:yellow;"{% endif %}>{{hostvars[device]['ansible_net_version']}}</td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>""",
+    }
+  }
+}

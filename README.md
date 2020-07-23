@@ -1,16 +1,14 @@
-Network Inventory Report with Ansible
-============================================
+# Network Inventory Report with Ansible
 
-Purpose
-------------
+## Purpose
 
 Creates a network inventory report for device versions. If a device version doesn't match what is configured in the "desired_version" variable then it will be highlighted in the report. This will send a report to Mattermost but can be modified to use Slack or other chat applications or documentation tools like Confluence.
 
-The playbook
-------------
+## The playbook
 
-Only two modules are needed for this example.  The [{os}_facts module][1] and
+Only two modules are needed for this example. The [{os}\_facts module][1] and
 the [mattermost module][5]
+
 ```
 ---
 - name: Build Arista inventory report
@@ -22,24 +20,35 @@ the [mattermost module][5]
     - network_compliance_report
 ```
 
-Required Variables
---------------------
+## Required Variables
 
-* *mattermost_url* = the url for the mattermost instance
-* *mattermost_token* = the api token for the mattermost instance
-* *mattermost_channel* = the channel to send the message to
+There are 2 ways to create a report, Mattermost and Confluence. Below are the required variables for each.
 
-Example Output
---------------------
+_Mattermost_
+
+- _mattermost_url_ = the url for the mattermost instance
+- _mattermost_token_ = the api token for the mattermost instance
+- _mattermost_channel_ = the channel to send the message to
+
+_Confluence_
+
+- _confluence_user_= Username for Confluence
+- _confluence_token_= API Token for Confluence
+- _confluence_title_= Title of the page to create
+- _confluence_json_query_= This is the JSON query to parse the Confluence payload for relevant data needed
+- _confluence_space_= This is the space that the page will be created (E.G. Network, Dev, etc)
+
+## Example Output
 
 Devices not matching the desired version will have a warning sign next to the version.
 
 ![Example Arista Report](https://i.imgur.com/hQoAALw.png)
 
 ---
+
 ![Red Hat Ansible Automation][6]
 
-Red Hat® Ansible® Automation consists of  three products:
+Red Hat® Ansible® Automation consists of three products:
 
 - [Red Hat® Ansible® Tower][7]: Built for operationalizing and scaling
   automation, managing complex deployments and speeding up productivity. Extend
@@ -64,4 +73,3 @@ Red Hat® Ansible® Automation consists of  three products:
 [7]: https://www.ansible.com/tower
 [8]: https://www.ansible.com/ansible-engine
 [9]: https://www.ansible.com/networking
-

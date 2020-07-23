@@ -5,3 +5,6 @@
     - files:
         - "tasks/{{ ansible_network_os }}.yml"
       skip: true
+
+- name: Include Confluence Tasks
+  include_tasks: confluence.yml

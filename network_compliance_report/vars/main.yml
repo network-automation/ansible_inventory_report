@@ -1,2 +1,6 @@
 ---
 # vars file for network_compliance_report
+
+confluence_title: "Network Inventory Report"
+confluence_json_query: "json.page.results[?title=='{{ confluence_title }}'].id"
+confluence_space: "NETWORK"
