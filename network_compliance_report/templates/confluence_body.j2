@@ -14,6 +14,7 @@
     <th>Management IP</th>
     <th>Serial #</th>
     <th>Version</th>
+    <th>NTP Servers</th>
   </tr>
 </thead>
 <tbody>
@@ -24,6 +25,7 @@
     <td>{{ hostvars[device]['ansible_host'] }}</td>
     <td>{{ hostvars[device]['ansible_net_serialnum'] }}</td>
     <td {% if hostvars[device]['ansible_net_version'] != desired_version %}style="background:yellow;"{% endif %}>{{hostvars[device]['ansible_net_version']}}</td>
+    <td {% if hostvars[device]['existing_ntp'] != ntp_servers %}style="background:red;"{% else %}style="background:red;"{% endif %}></td>
   </tr>
 {% endfor %}
 </tbody>

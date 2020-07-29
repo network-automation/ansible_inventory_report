@@ -1,6 +1,15 @@
 - name: Gathering Arista facts
   eos_facts:
-  
+
+- name: Get Existing NTP Servers
+  eos_command:
+    commands: "sh run | i ntp server"
+  register: current_ntp
+
+- name: Set Existing NTP Servers as fact
+  set_fact:
+    existing_ip: "{{ lookup('template','templates/eos_ntp.j2') }}"
+
 - name: Send Report to Mattermost
   mattermost:
     api_key: "{{ mattermost_token }}"
