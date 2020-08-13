@@ -1,0 +1,19 @@
+- name: Send notification message via Mattermost - Ansible Limit
+  mattermost:
+    url: "{{ mattermost_url }}"
+    api_key: "{{ mattermost_token }}"
+    channel: "{{ mattermost_channel }}"
+    text: "{{ lookup('template','templates/mattermost/mattermost_limit.j2') }}"
+    validate_certs: no
+  when: device_groups is defined
+  run_once: true
+
+- name: Send notification message via Mattermost - All Groups
+  mattermost:
+    url: "{{ mattermost_url }}"
+    api_key: "{{ mattermost_token }}"
+    channel: "{{ mattermost_channel }}"
+    text: "{{ lookup('template','templates/mattermost/mattermost_all.j2') }}"
+    validate_certs: no
+  when: device_groups is not defined
+  run_once: true

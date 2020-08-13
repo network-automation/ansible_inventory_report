@@ -6,5 +6,16 @@
         - "tasks/{{ ansible_network_os }}.yml"
       skip: true
 
+- name: Set Group Facts
+  set_fact:
+    device_groups: "{{ ansible_limit.split(' ') }}"
+  when: ansible_limit is defined
+  run_once: true
+
 - name: Include Confluence Tasks
   include_tasks: confluence.yml
+  when: enable_confluence
+
+- name: Include Mattermost Tasks
+  include_tasks: mattermost.yml
+  when: enable_mattermost

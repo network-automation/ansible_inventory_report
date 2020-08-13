@@ -1,0 +1,14 @@
+{% set ignore_groups = ['all','ungrouped'] %}
+{% for group in groups|dict2items %}
+{% set group = group.key %}
+{% if group not in ignore_groups %}
+### {{ group | upper }}
+
+
+|     Hostname   |     Model       | Management IP | Serial #  | Version   | NTP   | Syslog | AAA   |
+| :------------: | :--------------:| :------------:| :--------:| :--------:| :----:| :-----:| :----:|
+{% for device in groups[group] %}
+| {{ hostvars[device]['ansible_net_hostname'] }} | {{ hostvars[device]['ansible_net_model'] }}  |  {{ hostvars[device]['ansible_host'] }}    | {{ hostvars[device]['ansible_net_serialnum'] }} | {{hostvars[device]['ansible_net_version']}} | {% if hostvars[device]['existing_ntp']| unique != ntp_servers %}:no_entry:{% else %}:white_check_mark:{% endif %} | {% if hostvars[device]['existing_syslog']| unique != syslog_servers %}:no_entry:{% else %}:white_check_mark:{% endif %} | {% if hostvars[device]['existing_aaa']| unique != aaa_servers %}:no_entry:{% else %}:white_check_mark:{% endif %} |
+{% endfor %}
+{% endif %}
+{% endfor %}

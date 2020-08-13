@@ -1,5 +1,0 @@
-|     Hostname   |     Model       | Management IP | Version   |
-| :------------: | :--------------:| :------------:| :--------:|
-{% for network_switch in groups['eos'] %}
-| {{hostvars[network_switch]['ansible_net_hostname']}} | {{hostvars[network_switch]['ansible_net_model']}}  |  {{hostvars[network_switch]['ansible_net_interfaces']['Management1']['ipv4']['address']}}    | {% if hostvars[network_switch]['ansible_net_version'] != desired_version %}:warning:{% endif %} {{hostvars[network_switch]['ansible_net_version']}} |
-{% endfor %}

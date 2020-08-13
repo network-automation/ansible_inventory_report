@@ -1,0 +1,6 @@
+- name: Build Network Compliance Report
+  hosts: all
+  gather_facts: False
+
+  roles:
+    - network_compliance_report

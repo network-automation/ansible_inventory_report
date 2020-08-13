@@ -1,6 +1,6 @@
 - name: Get Confluence Pages
   uri:
-    url: "https://{{ confluence_url }}/wiki/rest/api/space/NETWORK/content"
+    url: https://{{ confluence_url }}/wiki/rest/api/space/{{ confluence_space }}}}/content?expand=body.storage,version
     method: GET
     user: "{{ confluence_user }}"
     password: "{{ confluence_token }}"
@@ -13,7 +13,7 @@
 - name: Set Confluence Data as Facts
   set_fact:
     confluence_page_titles: "{{ confluence_pages.json.page.results | map(attribute='title')|list }}"
-    confluence_page_id: "{{ confluence_pages | json_query(confluence_json_query) }}" #Found in vars/main.yml
+    confluence_page_id: "{{ confluence_pages | json_query(confluence_parent_query) }}" #Found in defaults/main.yml
   run_once: true
 
 - name: Get Confluence Page Version
@@ -33,33 +33,74 @@
     confluence_page_version: "{{ confluence_version_json.json.version.number | int + 1 }}" #API requires you to increment by 1 the version
   run_once: true
 
-- name: Create Network Inventory Report Page
-  uri:
-    url: "https://{{ confluence_url }}/wiki/rest/api/content/"
-    method: POST
-    user: "{{ confluence_user }}"
-    password: "{{ confluence_token }}"
-    force_basic_auth: yes
-    status_code: 201,200
-    body: "{{ lookup('template','templates/confluence_body.j2') }}"
-    body_format: json
-  run_once: true
-  when:
-    - confluence_title is defined
-    - confluence_title not in confluence_page_titles
+- name: Network Inventory Report - All Groups
+  block:
+    - name: Create Network Inventory Parent Page - All Groups
+      uri:
+        url: https://{{ confluence_url }}/wiki/rest/api/content/
+        method: POST
+        user: "{{ confluence_user }}"
+        password: "{{ confluence_token }}"
+        force_basic_auth: yes
+        status_code: 201,200
+        body: "{{ lookup('template','templates/confluence/confluence_all.j2') }}"
+        body_format: json
+      run_once: true
+      when:
+        - confluence_title is defined
+        - confluence_title not in confluence_page_titles
 
-- name: Update Network Inventory Report Page
-  uri:
-    url: "https://{{ confluence_url }}/wiki/rest/api/content/{{ confluence_page_id[0] }}"
-    method: PUT
-    user: "{{ confluence_user }}"
-    password: "{{ confluence_token }}"
-    force_basic_auth: yes
-    status_code: 201,200
-    body: "{{ lookup('template','templates/confluence_body.j2') }}"
-    body_format: json
-  run_once: true
+    - name: Update Network Inventory Parent Page - All Groups
+      uri:
+        url: "https://{{ confluence_url }}/wiki/rest/api/content/{{ confluence_page_id[0] }}"
+        method: PUT
+        user: "{{ confluence_user }}"
+        password: "{{ confluence_token }}"
+        force_basic_auth: yes
+        status_code: 201,200
+        body: "{{ lookup('template','templates/confluence/confluence_all.j2') }}"
+        body_format: json
+      run_once: true
+      when:
+        - confluence_title is defined
+        - confluence_title in confluence_page_titles
+        - confluence_page_id is defined
   when:
     - confluence_title is defined
-    - confluence_title in confluence_page_titles
-    - confluence_page_id is defined
+    - device_groups is not defined
+
+- name: Network Inventory Report - Ansible Limit
+  block:
+    - name: Create Network Inventory Parent Page - Ansible Limit
+      uri:
+        url: https://{{ confluence_url }}/wiki/rest/api/content/
+        method: POST
+        user: "{{ confluence_user }}"
+        password: "{{ confluence_token }}"
+        force_basic_auth: yes
+        status_code: 201,200
+        body: "{{ lookup('template','templates/confluence/confluence_limit.j2') }}"
+        body_format: json
+      run_once: true
+      when:
+        - confluence_title is defined
+        - confluence_title not in confluence_page_titles
+
+    - name: Update Network Inventory Parent Page - Ansible Limit
+      uri:
+        url: "https://{{ confluence_url }}/wiki/rest/api/content/{{ confluence_page_id[0] }}"
+        method: PUT
+        user: "{{ confluence_user }}"
+        password: "{{ confluence_token }}"
+        force_basic_auth: yes
+        status_code: 201,200
+        body: "{{ lookup('template','templates/confluence/confluence_limit.j2') }}"
+        body_format: json
+      run_once: true
+      when:
+        - confluence_title is defined
+        - confluence_title in confluence_page_titles
+        - confluence_page_id is defined
+  when:
+    - confluence_title is defined
+    - device_groups is defined

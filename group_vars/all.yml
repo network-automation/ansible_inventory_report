@@ -1,7 +1,0 @@
-mattermost_url: ""
-mattermost_token: ""
-mattermost_channel: ""
-
-ntp_servers:
-  - 3.3.3.3
-  - 3.3.3.4

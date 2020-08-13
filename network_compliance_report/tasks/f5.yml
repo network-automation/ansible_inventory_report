@@ -1,0 +1,52 @@
+---
+- name: Get F5 Facts
+  bigip_device_info:
+    provider: "{{ provider }}"
+    gather_subset:
+      - system-db
+      - system-info
+  register: f5_facts
+
+- name: Set F5 Facts
+  set_fact:
+    ansible_net_serialnum: "{{ f5_facts.system_info.chassis_serial }}"
+    ansible_net_model: "{{ f5_facts.system_info.platform }}"
+    ansible_net_hostname: "{{ inventory_hostname }}"
+    ansible_net_version: "{{ f5_facts.system_info.product_version }}"
+    desired_version: "{{ desired_version }}"
+    cacheable: yes
+
+- name: Get Existing NTP Servers
+  bigip_command:
+    provider: "{{ provider }}"
+    commands: list sys ntp servers
+  register: current_ntp
+
+- name: Get Existing Syslog Servers
+  bigip_command:
+    provider: "{{ provider }}"
+    commands: list sys syslog remote-servers
+  register: current_syslog
+
+- name: Get AAA Source
+  bigip_command:
+    provider: "{{ provider }}"
+    commands: tmsh list auth source | grep type
+  register: aaa_source
+
+- name: Set AAA Source as Fact
+  set_fact:
+    aaa_source: "{{ aaa_source.stdout[0] | replace('type ', '') }}"
+
+- name: Get Existing AAA Servers
+  bigip_command:
+    provider: "{{ provider }}"
+    commands: "list auth {{ aaa_source }} servers"
+  register: current_aaa
+
+- name: Create list of current servers
+  set_fact:
+    existing_ntp: "{{ current_ntp.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
+    existing_syslog: "{{ current_syslog.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
+    existing_aaa: "{{ current_aaa.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
+    cacheable: yes

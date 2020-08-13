@@ -1,20 +1,20 @@
-- name: Gathering Arista facts
-  eos_facts:
+- name: Gathering IOS facts
+  ios_facts:
   register: all_facts
 
 - name: Get Existing NTP Servers
-  eos_command:
+  ios_command:
     commands: "sh run | i ntp server"
   register: current_ntp
 
 - name: Get Existing Syslog Servers
-  eos_command:
+  ios_command:
     commands: "sh run | i logging host"
   register: current_syslog
 
 - name: Get Existing AAA Servers
-  eos_command:
-    commands: "sh run | i aaa"
+  ios_command:
+    commands: "sh run |  section aaa"
   register: current_aaa
 
 - name: Create list of current servers

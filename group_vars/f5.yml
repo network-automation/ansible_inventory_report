@@ -1,0 +1,5 @@
+provider:
+  server: "{{ ansible_host }}"
+  validate_certs: false
+
+desired_version: "15.1.0.2"

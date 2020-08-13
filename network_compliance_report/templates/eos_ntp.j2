@@ -1,3 +1,0 @@
-{% set existing_ntp = current_ntp.stdout_lines[0] %}
-{% for item in existing_ntp %}
-{% set item = item.split(" ") | ipaddr('address') %}

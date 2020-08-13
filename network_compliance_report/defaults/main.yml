@@ -1,2 +1,30 @@
 ---
 # defaults file for network_compliance_report
+dns_servers:
+  - 1.2.3.4
+
+aaa_servers:
+  - 1.2.3.4
+
+snmp_servers:
+  - 1.2.3.4
+
+ntp_servers:
+  - 1.2.3.4
+
+syslog_servers:
+  - 1.2.3.4
+
+enable_mattermost: yes
+enable_confluence: yes
+
+mattermost_channel: "inventory-report"
+mattermost_url: "https://www.mattermost.com"
+mattermost_token: "ABC123" #Remove this if you are setting as variable
+
+confluence_user: ""
+confluence_token: "" #Remove this if you are setting as variable
+confluence_title: "Network Inventory Report"
+confluence_space: "NETWORK"
+
+confluence_parent_query: "json.page.results[?title=='{{ confluence_title }}'].id" #Don't change this!

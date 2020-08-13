@@ -1,8 +1,0 @@
----
-- name: Build IOS inventory report
-  hosts: ios
-  connection: network_cli
-  gather_facts: False
-
-  roles:
-    - network_compliance_report

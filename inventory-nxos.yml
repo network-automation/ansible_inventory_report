@@ -1,8 +1,0 @@
----
-- name: Build Nexus inventory report
-  hosts: nxos
-  connection: network_cli
-  gather_facts: False
-
-  roles:
-    - network_compliance_report

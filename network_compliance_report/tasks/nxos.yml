@@ -1,11 +1,25 @@
 - name: Gathering Nexus facts
   nxos_facts:
-  
-- name: Send Report to Mattermost
-  mattermost:
-    api_key: "{{ mattermost_token }}"
-    url: "{{ mattermost_url }}"
-    text: "{{ lookup('template','mattermost_nxos.j2') }}"
-    channel: "{{ mattermost_channel }}"
-    validate_certs: no
-  run_once: true
+  register: all_facts
+
+- name: Get Existing NTP Servers
+  nxos_command:
+    commands: "sh run | i ntp server"
+  register: current_ntp
+
+- name: Get Existing Syslog Servers
+  nxos_command:
+    commands: "sh run | i 'logging server'"
+  register: current_syslog
+
+- name: Get Existing AAA Servers
+  nxos_command:
+    commands: "sh run |  section aaa"
+  register: current_aaa
+
+- name: Create list of current servers
+  set_fact:
+    existing_ntp: "{{ current_ntp.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
+    existing_syslog: "{{ current_syslog.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
+    existing_aaa: "{{ current_aaa.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
+    desired_version: "{{ desired_version }}"

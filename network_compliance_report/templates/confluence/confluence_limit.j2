@@ -1,0 +1,48 @@
+{% set ignore_groups = ['all','ungrouped'] %}
+{
+  "type": "page",
+  "title": "{{ confluence_title }}",
+  "version": {"number":"{{ confluence_page_version }}"},
+  "space": { "key": "{{ confluence_space }}" },
+  "body": {
+    "storage": {
+      "representation": "storage",
+      "value": """
+      <p style="font-size:26px"><u>Device Groups:</u></p>
+      <p><ac:structured-macro ac:name="toc\"/></p>
+      {% for group in device_groups %}
+      {% if group not in ignore_groups %}
+      <h2>{{ group | upper }}</h2>
+      <table>
+      <thead>
+        <tr>
+          <th>Hostname</th>
+          <th>Model</th>
+          <th>Management IP</th>
+          <th>Serial #</th>
+          <th>Version</th>
+          <th>NTP</th>
+          <th>Syslog</th>
+          <th>AAA</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for device in groups[group] %}
+        <tr>
+          <td style="text-align:center">{{ hostvars[device]['ansible_net_hostname'] }}</td>
+          <td style="text-align:center">{{ hostvars[device]['ansible_net_model'] }}</td>
+          <td style="text-align:center">{{ hostvars[device]['ansible_host'] }}</td>
+          <td style="text-align:center">{{ hostvars[device]['ansible_net_serialnum'] }}</td>
+          <td style="text-align:center">{% if hostvars[device]['ansible_net_version'] != hostvars[device]['desired_version'] %}<p>&#10071; {{ hostvars[device]['ansible_net_version'] }}</p> {% else %} {{ hostvars[device]['ansible_net_version'] }} {% endif %}</td>
+          <td style="text-align:center">{% if hostvars[device]['existing_ntp']| unique != ntp_servers %}<p>&#10060;</p>{% else %}<p>&#9989;</p>{% endif %}</td>
+          <td style="text-align:center">{% if hostvars[device]['existing_syslog']| unique != syslog_servers %}<p>&#10060;</p>{% else %}<p>&#9989;</p>{% endif %}</td>
+          <td style="text-align:center">{% if hostvars[device]['existing_aaa']|unique != aaa_servers %}<p>&#10060;</p>{% else %}<p>&#9989;</p>{% endif %}</td>
+        </tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
+{% endfor %}"""
+    }
+  }
+}
