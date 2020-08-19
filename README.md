@@ -64,9 +64,10 @@ I strongly recommend vaulting the API tokens! In Ansible Tower use a [Custom Cre
 ## Example Output
 
 Devices not matching the variables for each check will exhibit an ! if the version is off or X if the servers are missing.
-
+### Confluence Output
 ![Example Confluence Report](https://i.imgur.com/kR7m6E8.png)
 
+### Mattermost Output
 ![Example Mattermost Report](https://i.imgur.com/JkPm4I4.png)
 
 ---
