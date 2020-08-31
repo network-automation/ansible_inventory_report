@@ -60,7 +60,6 @@ These should be placed in vars/main.yml
 - **snmp_servers**: List of SNMP servers to check against
 - **ntp_servers**: List of NTP servers to check against
 - **syslog_servers**: List of Syslog servers to check against
-- **snmp_servers**: List of SNMP servers to check against
 - **dns_servers**: List of DNS servers to check against
 
 ### Mattermost
