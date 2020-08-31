@@ -1,1 +1,6 @@
 ---
+asa_version: "9.8(4)26"
+eos_version: "4.24.1.1F"
+f5_version: "15.1.0.2"
+ios_version: "16.12.03"
+panos_version: "9.0.0"
