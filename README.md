@@ -30,7 +30,7 @@ Creates a compliance report for network devices . In this example if a device's 
 The playbook has 2 templates for Confluence and Mattermost depending if you pass in an entire inventory or if you do a limit.
 
 - **all**: Will loop through all groups in the inventory except for All and Ungrouped. Make sure each device has its OS task otherwise it will error out
-- **limit**: Will loop through only the groups in limit
+- **limit**: Will loop through only the groups in the ansible_limit specified at runtime
 
 ## Required Variables
 
@@ -38,14 +38,34 @@ There are currently 2 ways to create a report, Mattermost and Confluence. Below 
 
 I strongly recommend vaulting the API tokens! In Ansible Tower use a [Custom Credential Type](https://www.ansible.com/blog/ansible-tower-feature-spotlight-custom-credentials) Please see step 5 in notes and make sure you remove these if you set them as vars.
 
+### OS Versions
+
+These should be placed in vars/main.yml
+
+Specifies the desired version for the devices to run. Ansible will compare this version to the current version to determine if it's compliant.
+
+Examples:
+
+- **asa_version**: "9.8(4)26"
+- **eos_version**: "4.24.1.1F"
+- **f5_version**: "15.1.0.2"
+- **ios_version**: "16.12.03"
+- **panos_version**: "9.0.0"
+
 ### Server Vars
+
+These should be placed in vars/main.yml
 
 - **aaa_servers**: List of AAA servers to check against
 - **snmp_servers**: List of SNMP servers to check against
 - **ntp_servers**: List of NTP servers to check against
 - **syslog_servers**: List of Syslog servers to check against
+- **snmp_servers**: List of SNMP servers to check against
+- **dns_servers**: List of DNS servers to check against
 
 ### Mattermost
+
+These should be placed in defaults/main.yml
 
 - **enable_mattermost**: (yes/no) Includes the Mattermost tasks
 - **mattermost_url**: the url for the mattermost instance
@@ -53,6 +73,8 @@ I strongly recommend vaulting the API tokens! In Ansible Tower use a [Custom Cre
 - **mattermost_channel**: the channel to send the message to
 
 ### Confluence
+
+These should be placed in defaults/main.yml
 
 - **enable_confluence**: (yes/no) Includes the Confluence tasks
 - **confluence_url**: Base URL for confluence (myconfluence.atlassian.com)
@@ -64,10 +86,13 @@ I strongly recommend vaulting the API tokens! In Ansible Tower use a [Custom Cre
 ## Example Output
 
 Devices not matching the variables for each check will exhibit an ! if the version is off or X if the servers are missing.
+
 ### Confluence Output
+
 ![Example Confluence Report](https://i.imgur.com/kR7m6E8.png)
 
 ### Mattermost Output
+
 ![Example Mattermost Report](https://i.imgur.com/JkPm4I4.png)
 
 ---
