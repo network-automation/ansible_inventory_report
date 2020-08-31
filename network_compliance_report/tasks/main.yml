@@ -1,10 +1,6 @@
 ---
 - name: "Include Inventory Report Tasks"
   include_tasks: "{{ ansible_network_os }}.yml"
-  with_first_found:
-    - files:
-        - "tasks/{{ ansible_network_os }}.yml"
-      skip: true
 
 - name: Set Group Facts
   set_fact:

@@ -12,4 +12,5 @@ confluence_token: "" #Remove this if you are setting as variable
 confluence_title: "Network Inventory Report"
 confluence_space: "NETWORK"
 
-confluence_parent_query: "json.page.results[?title=='{{ confluence_title }}'].id" #Don't change this unless you know what you're doing!
+#Don't change this unless you know what you're doing!
+confluence_parent_query: "json.page.results[?title=='{{ confluence_title }}'].id"

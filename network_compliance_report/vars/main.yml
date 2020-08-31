@@ -1,6 +1,24 @@
 ---
+#The following are the gold image version for each os platform
 asa_version: "9.8(4)26"
 eos_version: "4.24.1.1F"
 f5_version: "15.1.0.2"
 ios_version: "16.12.03"
 panos_version: "9.0.0"
+#These are the servers that are checked for on the devices
+dns_servers:
+  - 1.1.1.1
+  - 8.8.8.8
+
+aaa_servers:
+  - 10.0.100.1
+
+snmp_servers:
+  - 10.0.100.2
+
+ntp_servers:
+  - 132.163.96.5
+  - 132.163.97.5
+
+syslog_servers:
+  - 10.0.100.3
