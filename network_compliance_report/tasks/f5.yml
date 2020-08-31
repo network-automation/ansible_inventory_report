@@ -13,7 +13,7 @@
     ansible_net_model: "{{ f5_facts.system_info.platform }}"
     ansible_net_hostname: "{{ inventory_hostname }}"
     ansible_net_version: "{{ f5_facts.system_info.product_version }}"
-    desired_version: "{{ desired_version }}"
+    desired_version: "{{ f5_version }}"
     cacheable: yes
 
 - name: Get Existing NTP Servers
@@ -31,12 +31,12 @@
 - name: Get AAA Source
   bigip_command:
     provider: "{{ provider }}"
-    commands: tmsh list auth source | grep type
+    commands: list auth source | grep type
   register: aaa_source
 
 - name: Set AAA Source as Fact
   set_fact:
-    aaa_source: "{{ aaa_source.stdout[0] | replace('type ', '') }}"
+    aaa_source: "{{ aaa_source.stdout[0] | replace('type ', '') }}" #get the auth type for lookup (tacacs, radius, etc)
 
 - name: Get Existing AAA Servers
   bigip_command:
@@ -44,9 +44,16 @@
     commands: "list auth {{ aaa_source }} servers"
   register: current_aaa
 
+- name: Get Existing SNMP Servers
+  bigip_command:
+    provider: "{{ provider }}"
+    commands: list sys snmp allowed-addresses
+  register: current_snmp
+
 - name: Create list of current servers
   set_fact:
     existing_ntp: "{{ current_ntp.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
     existing_syslog: "{{ current_syslog.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
     existing_aaa: "{{ current_aaa.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
+    existing_snmp: "{{ current_snmp.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
     cacheable: yes

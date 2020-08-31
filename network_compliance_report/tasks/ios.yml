@@ -2,24 +2,19 @@
   ios_facts:
   register: all_facts
 
-- name: Get Existing NTP Servers
+- name: Get Existing Servers
   ios_command:
-    commands: "sh run | i ntp server"
-  register: current_ntp
-
-- name: Get Existing Syslog Servers
-  ios_command:
-    commands: "sh run | i logging host"
-  register: current_syslog
-
-- name: Get Existing AAA Servers
-  ios_command:
-    commands: "sh run |  section aaa"
-  register: current_aaa
+    commands:
+      - "show run | i ntp server"
+      - "show run | i logging host"
+      - "show run | section aaa"
+      - "show run | i snmp-server"
+  register: current_servers
 
 - name: Create list of current servers
   set_fact:
-    existing_ntp: "{{ current_ntp.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
-    existing_syslog: "{{ current_syslog.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
-    existing_aaa: "{{ current_aaa.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
-    desired_version: "{{ desired_version }}"
+    existing_ntp: "{{ current_servers.stdout[0] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
+    existing_syslog: "{{ current_servers.stdout[1] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
+    existing_aaa: "{{ current_servers.stdout[2] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
+    existing_snmp: "{{ current_servers.stdout[3] | regex_findall('\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b') }}"
+    desired_version: "{{ ios_version }}"

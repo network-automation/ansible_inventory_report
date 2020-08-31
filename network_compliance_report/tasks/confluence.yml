@@ -30,7 +30,7 @@
 
 - name: Set Confluence Version as Fact
   set_fact:
-    confluence_page_version: "{{ confluence_version_json.json.version.number | int + 1 }}" #API requires you to increment by 1 the version
+    confluence_page_version: "{{ confluence_version_json.json.version.number | int + 1 }}" #API requires you to increment the version + 1
   run_once: true
 
 - name: Network Inventory Report - All Groups
