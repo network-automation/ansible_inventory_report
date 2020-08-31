@@ -24,6 +24,8 @@
           <th>NTP</th>
           <th>Syslog</th>
           <th>AAA</th>
+          <th>SNMP</th>
+          <th>DNS</th>
         </tr>
       </thead>
       <tbody>
@@ -34,9 +36,11 @@
           <td style="text-align:center">{{ hostvars[device]['ansible_host'] }}</td>
           <td style="text-align:center">{{ hostvars[device]['ansible_net_serialnum'] }}</td>
           <td style="text-align:center">{% if hostvars[device]['ansible_net_version'] != hostvars[device]['desired_version'] %}<p>&#10071; {{ hostvars[device]['ansible_net_version'] }}</p> {% else %} {{ hostvars[device]['ansible_net_version'] }} {% endif %}</td>
-          <td style="text-align:center">{% if hostvars[device]['existing_ntp']| unique != ntp_servers %}<p>&#10060;</p>{% else %}<p>&#9989;</p>{% endif %}</td>
-          <td style="text-align:center">{% if hostvars[device]['existing_syslog']| unique != syslog_servers %}<p>&#10060;</p>{% else %}<p>&#9989;</p>{% endif %}</td>
-          <td style="text-align:center">{% if hostvars[device]['existing_aaa']|unique != aaa_servers %}<p>&#10060;</p>{% else %}<p>&#9989;</p>{% endif %}</td>
+          <td style="text-align:center">{% if hostvars[device]['existing_ntp']|default([])|unique|sort != ntp_servers %}<p>&#9940;</p>{% else %}<p>&#9989;</p>{% endif %}</td>
+          <td style="text-align:center">{% if hostvars[device]['existing_syslog']|default([])|unique|sort != syslog_servers %}<p>&#9940;</p>{% else %}<p>&#9989;</p>{% endif %}</td>
+          <td style="text-align:center">{% if hostvars[device]['existing_aaa']|default([])|unique|sort != aaa_servers %}<p>&#9940;</p>{% else %}<p>&#9989;</p>{% endif %}</td>
+          <td style="text-align:center">{% if hostvars[device]['existing_snmp']|default([])|unique|sort != snmp_servers %}<p>&#9940;</p>{% else %}<p>&#9989;</p>{% endif %}</td>
+          <td style="text-align:center">{% if hostvars[device]['existing_dns']|default([])|unique|sort != dns_servers %}<p>&#9940;</p>{% else %}<p>&#9989;</p>{% endif %}</td>
         </tr>
 {% endfor %}
 </tbody>
